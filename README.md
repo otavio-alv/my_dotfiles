@@ -1,26 +1,27 @@
 # my_dotfiles
 
-Dotfiles do meu rice atual: **Sway (SwayFX) no EndeavourOS/Arch**, visual escuro e minimalista, com cores geradas dinamicamente a partir do wallpaper via **pywal**.
+Rice atual baseado em **Sway (SwayFX) no EndeavourOS/Arch**, visual escuro ASCII e minimalista, com cores geradas dinamicamente a partir do wallpaper via **pywal**.
 
 ## Stack
 
 | Função | Ferramenta |
 |---|---|
 | Distro | EndeavourOS / Arch Linux |
-| Compositor | Sway com efeitos (SwayFX: `blur`, `animation_duration_ms`) |
+| Compositor | Sway(FX) |
 | Barra | Waybar |
-| Launcher | Rofi (módulos `drun` + `calc`, tema `hacker.rasi`) |
-| Terminal | Kitty (zsh, JetBrainsMono Nerd Font, 90% de opacidade) |
-| Tema/cores | pywal (`wal -i <imagem>`) + `~/.config/theme/sync-theme.sh` |
-| Lock / idle | swaylock-effects (blur do screenshot) + swayidle |
-| OSD | SwayOSD |
+| Launcher | Rofi |
+| Terminal | Kitty / zsh |
+| Tema/cores | pywal |
 | Teclado | Layout XKB próprio `br(meuabnt2)` |
-| Navegador / editor / arquivos | Zen Browser, VS Code, Nautilus |
-| Extras | TickTick na Waybar (CLI + systemd timer), wlsunset, gnome-keyring |
 
 ## Estrutura
 
 ```
+assets/
+├── fonts/
+│   ├── EnvyCodeR/       Envy Code R Nerd Font (Regular, Bold, Italic, Mono, Propo)
+│   └── JetBrainsMono/   JetBrains Mono (várias variantes, incluindo NL)
+└── wallpapers/          13 wallpapers (angel, holy, rome, zeus, forestblur, etc.)
 dotfiles/
 ├── sway/        config + scripts/start-keyring.sh
 ├── waybar/      config.jsonc, style.css, scripts/ (bluetooth, powermenu, wlsunset, ticktick)
@@ -39,13 +40,13 @@ Pacotes oficiais/AUR (nomes podem variar; confira com `yay -Ss`):
 sudo pacman -S --needed sway waybar rofi rofi-calc kitty zsh swayidle \
   grim slurp wl-clipboard playerctl brightnessctl pavucontrol blueman \
   wlsunset polkit-gnome gnome-keyring nautilus python-pywal \
-  power-profiles-daemon wireplumber ttf-jetbrains-mono-nerd
+  power-profiles-daemon wireplumber
 
 # AUR
 yay -S swayfx swaylock-effects swayosd zen-browser-bin
 ```
 
-Também usados: fonte **Envy Code R Nerd Font** (Rofi), `xfce4-power-manager`, `code` (VS Code) e `nmgui` (clique direito na rede).
+> Também usados: `xfce4-power-manager`, `code` (VS Code) e `nmgui` (clique direito na rede).
 
 > `swayfx` substitui o pacote `sway` (conflitam). Se usar SwayFX, não instale o `sway` comum.
 
@@ -74,11 +75,24 @@ systemctl --user enable --now ticktick-cli.timer
 # Scripts executáveis
 chmod +x ~/.config/waybar/scripts/*.sh ~/.config/sway/scripts/*.sh
 
+# Fontes (a partir dos assets do repo)
+mkdir -p ~/.local/share/fonts
+cp -r ~/my_dotfiles/assets/fonts/JetBrainsMono ~/.local/share/fonts/
+cp -r ~/my_dotfiles/assets/fonts/EnvyCodeR ~/.local/share/fonts/
+fc-cache -fv
+
 # Tema: gere as cores antes de iniciar o sway
-wal -i ~/Pictures/seu-wallpaper.jpg
+wal -i ~/my_dotfiles/assets/wallpapers/holy.png
 ```
 
-### Layout de teclado (XKB)
+## Fontes incluídas
+
+| Fonte | Usada em | Arquivos no repo |
+|---|---|---|
+| **JetBrains Mono** | Kitty | `assets/fonts/JetBrainsMono/` (Regular, Bold, Italic, Light, Medium, SemiBold, ExtraBold, Thin + variantes NL) |
+| **Envy Code R Nerd Font** | Rofi, Waybar | `assets/fonts/EnvyCodeR/` (Regular, Bold, Italic + variantes Mono e Propo) |
+
+## Layout de teclado (XKB)
 
 O sway usa `xkb_layout br` + `xkb_variant meuabnt2`. A variante vive em `xkb/br` e precisa estar no sistema:
 
@@ -119,19 +133,9 @@ sudo cp ~/my_dotfiles/xkb/br /usr/share/X11/xkb/symbols/br
 | `Print` | Print de região para o clipboard |
 | `Shift+Print` | Print de região para `~/Pictures` |
 
-Gestos no touchpad: swipe esquerda/direita troca de workspace. O lock ocorre após 5 min de inatividade e a suspensão após 10 min.
-
 ## Trocar o tema
 
 ```bash
 wal -i caminho/da/imagem.jpg   # gera ~/.cache/wal/colors-sway e colors-kitty.conf
 # depois: Super+Shift+T
 ```
-
-O Sway e o Kitty incluem os arquivos gerados em `~/.cache/wal/`. O script `~/.config/theme/sync-theme.sh` também é chamado pelo atalho, mas **não está neste repositório**.
-
-## Observações
-
-- Cabeçalho do `sway/config` credita "WildGothitelle" como base.
-- `kitty.conf.bak` e temas não usados (Medallion, otv) estão apenas como referência.
-- Licença: veja [LICENSE](LICENSE).
