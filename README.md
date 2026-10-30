@@ -23,24 +23,6 @@ Feel free to take inspiration; these are personal configs, not a distro!
 | Theming/colors | pywal |
 | Keyboard | Custom XKB layout `br(meuabnt2)` |
 
-## Structure
-
-```
-assets/
-├── fonts/
-│   ├── EnvyCodeR/       Envy Code R Nerd Font (Regular, Bold, Italic, Mono, Propo)
-│   └── JetBrainsMono/   JetBrains Mono (several variants, including NL)
-└── wallpapers/          13 wallpapers (angel, holy, rome, zeus, forestblur, etc.)
-dotfiles/
-├── sway/        config + scripts/start-keyring.sh
-├── waybar/      config.jsonc, style.css, scripts/ (bluetooth, powermenu, wlsunset, ticktick)
-├── rofi/        config.rasi + themes/ (hacker, blurred, colors-rofi-dark, generated-colors)
-├── kitty/       kitty.conf, themes (Medallion, otv, current-theme)
-├── swaylock/    config
-└── systemd/user ticktick-cli.service/.timer + *.target.wants
-xkb/br           custom keyboard layout (meuabnt2 variant)
-```
-
 ## Dependencies
 
 Official/AUR packages (names may vary; check with `yay -Ss`):
