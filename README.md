@@ -7,7 +7,7 @@ Feel free to take inspiration; these are personal configs, not a distro!
 ## Screenshots
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c00911dd-e806-4cef-a0b3-9c1253487157" />
-<img width="1919" height="1080" alt="image" src="https://github.com/user-attachments/assets/048600f8-e63c-4367-be1d-05c3c518ec0a" />
+<img width="1918" height="1080" alt="image" src="https://github.com/user-attachments/assets/962c73eb-cffb-44d7-bf0e-58bbba8415d0" />
 <img width="1918" height="1080" alt="image" src="https://github.com/user-attachments/assets/a2bc0cac-563a-44cd-ad50-40d3d0d92509" />
 
 
