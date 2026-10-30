@@ -1,40 +1,49 @@
 # my_dotfiles
 
-Rice atual baseado em **Sway (SwayFX) no EndeavourOS/Arch**, visual escuro ASCII e minimalista, com cores geradas dinamicamente a partir do wallpaper via **pywal**.
+My current rice, based on **Sway (SwayFX) on EndeavourOS/Arch**, with a dark, minimalist ASCII look and colors generated dynamically from the wallpaper via **pywal**.
+
+Feel free to take inspiration; these are personal configs, not a distro!
+
+## Screenshots
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c00911dd-e806-4cef-a0b3-9c1253487157" />
+<img width="1919" height="1080" alt="image" src="https://github.com/user-attachments/assets/048600f8-e63c-4367-be1d-05c3c518ec0a" />
+<img width="1918" height="1080" alt="image" src="https://github.com/user-attachments/assets/a2bc0cac-563a-44cd-ad50-40d3d0d92509" />
+
 
 ## Stack
 
-| Função | Ferramenta |
+| Role | Tool |
 |---|---|
 | Distro | EndeavourOS / Arch Linux |
 | Compositor | Sway(FX) |
-| Barra | Waybar |
+| Bar | Waybar |
 | Launcher | Rofi |
 | Terminal | Kitty / zsh |
-| Tema/cores | pywal |
-| Teclado | Layout XKB próprio `br(meuabnt2)` |
+| Theming/colors | pywal |
+| Keyboard | Custom XKB layout `br(meuabnt2)` |
 
-## Estrutura
+## Structure
 
 ```
 assets/
 ├── fonts/
 │   ├── EnvyCodeR/       Envy Code R Nerd Font (Regular, Bold, Italic, Mono, Propo)
-│   └── JetBrainsMono/   JetBrains Mono (várias variantes, incluindo NL)
+│   └── JetBrainsMono/   JetBrains Mono (several variants, including NL)
 └── wallpapers/          13 wallpapers (angel, holy, rome, zeus, forestblur, etc.)
 dotfiles/
 ├── sway/        config + scripts/start-keyring.sh
 ├── waybar/      config.jsonc, style.css, scripts/ (bluetooth, powermenu, wlsunset, ticktick)
 ├── rofi/        config.rasi + themes/ (hacker, blurred, colors-rofi-dark, generated-colors)
-├── kitty/       kitty.conf, temas (Medallion, otv, current-theme)
+├── kitty/       kitty.conf, themes (Medallion, otv, current-theme)
 ├── swaylock/    config
 └── systemd/user ticktick-cli.service/.timer + *.target.wants
-xkb/br           layout de teclado customizado (variante meuabnt2)
+xkb/br           custom keyboard layout (meuabnt2 variant)
 ```
 
-## Dependências
+## Dependencies
 
-Pacotes oficiais/AUR (nomes podem variar; confira com `yay -Ss`):
+Official/AUR packages (names may vary; check with `yay -Ss`):
 
 ```bash
 sudo pacman -S --needed sway waybar rofi rofi-calc kitty zsh swayidle \
@@ -46,96 +55,96 @@ sudo pacman -S --needed sway waybar rofi rofi-calc kitty zsh swayidle \
 yay -S swayfx swaylock-effects swayosd zen-browser-bin
 ```
 
-> Também usados: `xfce4-power-manager`, `code` (VS Code) e `nmgui` (clique direito na rede).
+> Also used: `xfce4-power-manager`, `code` (VS Code) and `nmgui` (right-click on the network module).
 
-> `swayfx` substitui o pacote `sway` (conflitam). Se usar SwayFX, não instale o `sway` comum.
+> `swayfx` replaces the `sway` package (they conflict). If you use SwayFX, do not install regular `sway`.
 
-## Instalação
+## Installation
 
 ```bash
 git clone https://github.com/otavio-alv/my_dotfiles.git ~/my_dotfiles
 cd ~/my_dotfiles
 
-# Faça backup do que já existir
+# Back up anything that already exists
 mkdir -p ~/.config
 for d in sway waybar rofi kitty; do
   [ -e ~/.config/$d ] && mv ~/.config/$d ~/.config/$d.bak
   ln -s ~/my_dotfiles/dotfiles/$d ~/.config/$d
 done
 
-# swaylock (o sway chama ~/.swaylock/config)
+# swaylock (sway calls ~/.swaylock/config)
 mkdir -p ~/.swaylock && ln -s ~/my_dotfiles/dotfiles/swaylock/config ~/.swaylock/config
 
-# systemd (timer do TickTick)
+# systemd (TickTick timer)
 mkdir -p ~/.config/systemd
 ln -s ~/my_dotfiles/dotfiles/systemd/user ~/.config/systemd/user
 systemctl --user daemon-reload
 systemctl --user enable --now ticktick-cli.timer
 
-# Scripts executáveis
+# Make scripts executable
 chmod +x ~/.config/waybar/scripts/*.sh ~/.config/sway/scripts/*.sh
 
-# Fontes (a partir dos assets do repo)
+# Fonts (from the repo assets)
 mkdir -p ~/.local/share/fonts
 cp -r ~/my_dotfiles/assets/fonts/JetBrainsMono ~/.local/share/fonts/
 cp -r ~/my_dotfiles/assets/fonts/EnvyCodeR ~/.local/share/fonts/
 fc-cache -fv
 
-# Tema: gere as cores antes de iniciar o sway
+# Theme: generate the colors before starting sway
 wal -i ~/my_dotfiles/assets/wallpapers/holy.png
 ```
 
-## Fontes incluídas
+## Included fonts
 
-| Fonte | Usada em | Arquivos no repo |
+| Font | Used in | Files in the repo |
 |---|---|---|
-| **JetBrains Mono** | Kitty | `assets/fonts/JetBrainsMono/` (Regular, Bold, Italic, Light, Medium, SemiBold, ExtraBold, Thin + variantes NL) |
-| **Envy Code R Nerd Font** | Rofi, Waybar | `assets/fonts/EnvyCodeR/` (Regular, Bold, Italic + variantes Mono e Propo) |
+| **JetBrains Mono** | Kitty | `assets/fonts/JetBrainsMono/` (Regular, Bold, Italic, Light, Medium, SemiBold, ExtraBold, Thin + NL variants) |
+| **Envy Code R Nerd Font** | Rofi, Waybar | `assets/fonts/EnvyCodeR/` (Regular, Bold, Italic + Mono and Propo variants) |
 
-## Layout de teclado (XKB)
+## Keyboard layout (XKB)
 
-O sway usa `xkb_layout br` + `xkb_variant meuabnt2`. A variante vive em `xkb/br` e precisa estar no sistema:
+Sway uses `xkb_layout br` + `xkb_variant meuabnt2`. The variant lives in `xkb/br` and must be installed on the system:
 
 ```bash
 sudo cp /usr/share/X11/xkb/symbols/br /usr/share/X11/xkb/symbols/br.bak
 sudo cp ~/my_dotfiles/xkb/br /usr/share/X11/xkb/symbols/br
 ```
 
-`meuabnt2` é o ABNT2 padrão com AltGr+E = `\`, AltGr+Z = `|` e AltGr+R = `°`. Atualizações do pacote `xkeyboard-config` podem sobrescrever o arquivo.
+`meuabnt2` is the standard ABNT2 layout with AltGr+E = `\`, AltGr+Z = `|` and AltGr+R = `°`. Updates to the `xkeyboard-config` package may overwrite the file.
 
-## Ajustes obrigatórios
+## Required tweaks
 
-- **Caminhos fixos:** o `sway/config` e o `rofi/config.rasi` usam `/home/otavioalv/...`. Troque pelo seu usuário (`sed -i 's|/home/otavioalv|'"$HOME"'|g' ...`).
-- **Monitores:** `eDP-1` (1920x1080@144Hz) e `HDMI-A-1` (1920x1080@60Hz, à direita). Veja os seus com `swaymsg -t get_outputs`.
-- **Backlight:** a Waybar usa `intel_backlight`.
-- **SSH:** o config referencia a chave `~/.ssh/gitkey`.
-- **TickTick:** depende do binário `~/.local/bin/ticktickCLI`, que **não está neste repositório**. Sem ele, desative o módulo `custom/ticktick`.
-- **Waybar:** a pasta `waybar/waybar/` parece ser resquício do Waybar Configurator; o que vale é `config.jsonc` + `style.css`.
+- **Hardcoded paths:** `sway/config` and `rofi/config.rasi` use `/home/otavioalv/...`. Replace with your username (`sed -i 's|/home/otavioalv|'"$HOME"'|g' ...`).
+- **Monitors:** `eDP-1` (1920x1080@144Hz) and `HDMI-A-1` (1920x1080@60Hz, on the right). Check yours with `swaymsg -t get_outputs`.
+- **Backlight:** Waybar uses `intel_backlight`.
+- **SSH:** the config references the key `~/.ssh/gitkey`.
+- **TickTick:** depends on the `~/.local/bin/ticktickCLI` binary, which is **not in this repository**. Without it, disable the `custom/ticktick` module.
+- **Waybar:** the `waybar/waybar/` folder seems to be a leftover from Waybar Configurator; what matters is `config.jsonc` + `style.css`.
 
-## Atalhos principais (`Super` = Mod4)
+## Main keybindings (`Super` = Mod4)
 
-| Atalho | Ação |
+| Shortcut | Action |
 |---|---|
 | `Super+Enter` | Kitty |
 | `Super+Space` | Rofi (apps) |
-| `Super+W` | Fechar janela |
+| `Super+W` | Close window |
 | `Super+E` | Nautilus |
 | `Super+Z` | Zen Browser |
-| `Super+C` | Editar o config do sway no VS Code |
-| `Super+Shift+T` | Sincronizar tema + recarregar o sway |
-| `Super+Shift+C` | Recarregar o sway |
-| `Super+Shift+E` | Sair do sway |
-| `Super+M` | Suspender |
-| `Super+1..0` | Workspaces (`Shift` move a janela) |
-| `Super+H/J/K/L` | Foco (`Shift` move a janela) |
-| `Super+R` | Modo resize |
+| `Super+C` | Edit the sway config in VS Code |
+| `Super+Shift+T` | Sync theme + reload sway |
+| `Super+Shift+C` | Reload sway |
+| `Super+Shift+E` | Exit sway |
+| `Super+M` | Suspend |
+| `Super+1..0` | Workspaces (`Shift` moves the window) |
+| `Super+H/J/K/L` | Focus (`Shift` moves the window) |
+| `Super+R` | Resize mode |
 | `Super+B` / `V` | Split horizontal / vertical |
-| `Print` | Print de região para o clipboard |
-| `Shift+Print` | Print de região para `~/Pictures` |
+| `Print` | Screenshot of a region to the clipboard |
+| `Shift+Print` | Screenshot of a region to `~/Pictures` |
 
-## Trocar o tema
+## Changing the theme
 
 ```bash
-wal -i caminho/da/imagem.jpg   # gera ~/.cache/wal/colors-sway e colors-kitty.conf
-# depois: Super+Shift+T
+wal -i path/to/image.jpg   # generates ~/.cache/wal/colors-sway and colors-kitty.conf
+# then: Super+Shift+T
 ```
