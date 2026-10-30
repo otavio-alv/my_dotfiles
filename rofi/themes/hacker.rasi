@@ -1,0 +1,110 @@
+/*******************************************************************************
+ * ROFI Color Theme: Hacker / Machine Style (Compacto)
+ *******************************************************************************/
+
+@import "/home/otavioalv/.cache/wal/colors-rofi-dark.rasi"
+
+* {
+    /* Paleta */
+    bg-col:       #111310;
+    input-col:    #221F1F;
+    fg-col:       #FEF9E1;
+    accent-col:   #FF5555;
+    select-bg:    #333333;
+    border-col:   #FEF9E1;
+    
+    /* MUDANÇA: Fonte reduzida de 15 para 11 */
+    font: "Envy Code R Nerd Font 11";
+
+    background-color: transparent;
+    text-color:       @fg-col;
+    margin:           0px;
+    padding:          0px;
+    spacing:          0px;
+}
+
+window {
+    /* MUDANÇA: Largura reduzida de 600px para 450px */
+    width:            600px;
+    background-color: @bg-col;
+    border:           1px;
+    border-color:     @border-col;
+    border-radius:    2px;
+    /* MUDANÇA: Padding da janela reduzido */
+    padding:          10px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @input-col;
+    border:           1px;
+    border-color:     @border-col;
+    /* MUDANÇA: Padding e margem reduzidos para ficar mais 'tigh' */
+    padding:          4px;
+    margin:           0px 0px 8px 0px; 
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    padding:    0px 8px 0px 4px;
+    text-color: @selected-active-background;
+    content:    ">";
+}
+
+entry {
+    placeholder:       "Pesquisar...";
+    placeholder-color: #666666;
+    text-color:        @fg-col;
+    cursor:            text;
+}
+
+listview {
+    border:       0px;
+    lines:        8;
+    scrollbar:    true;
+}
+
+scrollbar {
+    handle-width: 3px; /* Um pouco mais fina */
+    handle-color: @selected-active-background;
+    background-color: @input-col;
+    margin: 0px 0px 0px 6px;
+}
+
+element {
+    /* MUDANÇA: Padding dos itens reduzido pela metade */
+    padding: 4px;
+    margin:  1px 0px; /* Margem menor entre itens */
+    border:  1px;
+    border-color: transparent;
+}
+
+element-icon {
+    /* MUDANÇA: Ícones menores */
+    size: 16px;
+    margin: 0px 8px 0px 0px;
+}
+
+element selected {
+    background-color: @input-col;
+    text-color:       @selected-active-background;
+    border:           1px;
+    border-color:     @selected-active-background;
+}
+
+element-text selected {
+    text-color: @active-foreground;
+}
+
+#element.normal.normal {
+    background-color: @bg-col;
+    text-color: @normal-foreground;
+}
+
+#element.alternate.normal {
+    background-color: @bg-col;
+    text-color: @normal-foreground;
+}

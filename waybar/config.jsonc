@@ -1,0 +1,157 @@
+{
+  "layer": "bot",
+  "position": "top",
+  "spacing": 0,
+  "margin-bottom": 0,
+  "margin-top": 10,
+  "margin-right": 16,
+  "margin-left": 16,
+
+// -- Modules Layout ----------------------------
+  "modules-left": [
+    "sway/workspaces"
+  ],
+
+  "modules-center": [
+    "mpris"
+  ],
+
+  "modules-right": [
+    "wireplumber",
+    "backlight",
+    "battery",
+    "power-profiles-daemon",
+    "network",
+    "bluetooth",
+    "clock",
+    "custom/ticktick",
+    "custom/power"
+  ], 
+
+  // -- Workspaces --------------------------------
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": false,
+    "tooltip": false,
+    "format": "[ {name} ]" 
+  },  
+
+  // -- Media Info ---------------------------------
+  "mpris": {
+    "format": "[ {player_icon} {title} - {artist} ]",
+    "format-paused": "[ {status_icon} <i>{title} - {artist}</i> ]",
+    "player-icons": {
+      "default": "⏺",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "⏸"
+    }
+  },
+  
+  // -- Volume -------------------------------
+  "wireplumber": {
+    "format": "[ {icon}  {volume}% ]", 
+    "format-muted": "[ 󰖁  {volume}% ]", 
+    "format-icons": ["", "", ""],
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+  },
+
+    
+  // -- Brightness (Nativo) --------------------------
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "[ {icon}  {percent}% ]", 
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-click": "~/.config/waybar/scripts/wlsunset_toggle.sh"
+  },
+
+  // -- Battery (Nativo) ------------------------------
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "[ {icon} {capacity}%", 
+    "format-charging": "[ 󰂄 {capacity}%", 
+    "format-plugged": "[ 󰂄 {capacity}%", 
+    "format-full": "[ 󰁹 {capacity}%", 
+    "format-icons": {
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "warning": "B1",
+      "critical": "B2"
+    },
+    "interval": 10,
+    "on-click": "xfce4-power-manager-settings"
+  },
+
+  // -- Power Profiles (Editado para fusão) -------------
+  "power-profiles-daemon": {
+    "format": " {icon} ]", 
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "⭘",
+      "performance": "󰓅",    // P para Performance
+      "balanced": "⭘",       // B para Balanceado
+      "power-saver": "󰌪"     // S para Saver (Economia)
+    }
+  },
+
+  // -- Network -------------------------------------
+  "network": {
+    "format-wifi": "[ {icon}  ]", 
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"], 
+    "format-ethernet": "[ 󰀂 ]", 
+    "format-alt": "[ 󱛇 ]", 
+    "format-disconnected": "[ 󰖪 ]", 
+    "tooltip-format-wifi": "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click-right": "nmgui",
+    "interval": 5,
+    "nospacing": 1
+  },
+
+  // -- Bluetooth ---------------------------------------
+  "bluetooth": {
+    "format": "{icon}",
+    "format-icons": {
+      "enabled": "[  ]",
+      "disabled": "[ 󰂲 ]" 
+    },
+    "on-click": "~/.config/waybar/scripts/bluetooth-toggle.sh",
+    "on-click-right": "blueman-manager",
+    "tooltip-format": "Bluetooth is {status}",
+    "interval": 5
+  },
+
+  // -- Clock ---------------------------------------------
+  "clock": {
+    "format": "[   {:%I:%M %p} ]",
+    "format-alt": "[ {:%a, %d %b %Y} ]",
+    "tooltip-format": "{:%d.%m.%Y}"
+  },
+
+  // -- TickTick ----------------------------------------
+  "custom/ticktick": {
+    "exec": "~/.config/waybar/scripts/ticktick.sh",
+    "return-type": "json",
+    "interval": 60,
+    "tooltip": true,
+    "on-click": "~/.config/waybar/scripts/ticktick-popup.sh",
+    "on-click-right": "systemctl --user start ticktick-cli.service"
+  },
+  
+  // -- Power Menu ----------------------------------------
+  "custom/power": {
+    "format": "[ 󰐥 ] ",
+    "tooltip": false,
+    "on-click": "~/.config/waybar/scripts/powermenu.sh"
+  }
+
+}

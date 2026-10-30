@@ -1,0 +1,24 @@
+@import "/home/otavioalv/.config/rofi/themes/hacker.rasi"
+
+* {
+    bg-blur: url("/tmp/rofi-bg-blurred.jpg", none);
+}
+
+window {
+    width:             100%;
+    height:            100%;
+    background-color:  #00000076;
+    background-image:  @bg-blur;
+    border:            0px;
+    border-radius:     0px;
+    /* padding centraliza o mainbox: (1920-600)/2=660, altura ~450px de caixa */
+    padding:           315px 660px;
+}
+
+mainbox {
+    background-color:  @bg-col;
+    border:             1px;
+    border-color:       @border-col;
+    border-radius:      2px;
+    padding:            10px;
+}

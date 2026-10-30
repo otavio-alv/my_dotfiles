@@ -1,0 +1,9 @@
+/* Arquivo gerado automaticamente por sync-theme.sh */
+* {
+  bg-col:       #111310;
+  input-col:    #236d45;
+  fg-col:       #FEF9E1;
+  accent-col:   #82ffa4;
+  select-bg:    #333333;
+  border-col:   #FEF9E1;
+}

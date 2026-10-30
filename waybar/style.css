@@ -1,0 +1,147 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   | ASCII_WAYBAR_STYLE |
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* @import url("../theme/waybar-colors.css"); */
+@import "/home/otavioalv/.cache/wal/colors-waybar.css";
+
+@define-color theme_bg #111310;
+@define-color theme_fg #FEF9E1;
+@define-color theme_border_focus #FEF9E1;
+@define-color theme_hover_bg #333333;
+
+/* === BASE === */
+* {
+  border: none;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  font-family: "Envy Code R Nerd Font";
+  font-size: 15px;
+  font-weight: normal;
+}
+
+/* === JANELA PRINCIPAL === */
+window#waybar {
+  background-color: @theme_bg;
+  color: @theme_fg;
+  border: 1px solid @theme_border_focus;
+}
+
+
+/* === WORKSPACES (L) ===*/
+#workspaces {
+  background-color: transparent;
+  padding: 0 10px;
+}
+
+#workspaces button {
+  all: initial;
+  min-width: 0;
+  box-shadow: inherit;
+  padding: 3px 3px;
+  margin: 6px 1px;
+  border-radius: 2px;
+  color: @theme_fg;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.focused {
+  color: @color1;
+}
+
+#workspaces button:hover {
+  background: @theme_hover_bg;  /* Cor fundo selecionado */
+  color: @color1;       /* Cor principal */
+  border-color: @color1;
+}
+
+/* === RIGHT MODULES === */
+#modules-right {
+  margin-right: 300px;
+}
+
+#mpris,
+#wireplumber,
+#backlight,
+#battery,
+#power-profiles-daemon,
+#network,
+#bluetooth,
+#clock {
+  padding: 4px 4px;
+  margin: 1px 1px;
+  background-color: transparent; 
+  border-radius: 2px;
+  color: @theme_fg;
+  border: 1px solid transparent;
+}
+#custom-ticktick,
+#custom-power {       
+  padding: 4px 4px;
+  margin: 1px 1px;
+  background-color: transparent;
+  border-radius: 2px;
+  color: @theme_fg;
+  border: 1px solid transparent;
+}
+
+/* === RIGHT MODULES (HOVER) ===*/
+#mpris:hover,
+#wireplumber:hover,
+#backlight:hover,
+#battery:hover,
+#power-profiles-daemon:hover,
+#network:hover,
+#bluetooth:hover,
+#clock:hover {
+  background-color: @theme_hover_bg;
+  color: @color1;
+  border-color: @color1;
+  transition: all 0.2s ease-in-out;
+}
+#custom-ticktick:hover,
+#custom-power:hover { 
+  background-color: @theme_hover_bg;
+  color: @color1;
+  border-color: @color1;
+  transition: all 0.2s ease-in-out;
+}
+
+#custom-ticktick.pending { color: @color1; }
+
+/* === Estilos Individuais e Estados === */
+#wireplumber.muted {
+  color: @color1;
+}
+
+#bluetooth.disabled {
+  color: @color1;
+}
+
+#network.disconnected {
+  background-color: @color1;
+  color: @theme_bg;
+}
+
+#battery.critical {
+  background-color: @color1;
+  color: @theme_bg;
+}
+
+#battery.warning {
+  color: @color1;
+}
+
+/* === Tooltips ============================================================ */
+tooltip {
+  color: @theme_fg;
+  background-color: @theme_bg;
+  border: 1px solid @color1;
+  border-radius: 2px;
+}
+
+tooltip label {
+  color: @theme_fg;
+}

@@ -1,0 +1,54 @@
+# Imagem de fundo (captura da tela atual com desfoque)
+screenshots
+
+# Desfoque do fundo
+effect-blur=15x3
+
+# Escala inicial para o desfoque ficar mais suave
+effect-scale=0.3
+
+# Indicador minimalista (estilo TUI)
+indicator
+indicator-radius=80
+indicator-thickness=6
+
+# Cores escuras e minimalistas (estilo ily/tui)
+inside-color=000000cc
+inside-ver-color=000000cc
+inside-wrong-color=000000cc
+inside-clear-color=000000cc
+
+ring-color=333333ff
+ring-ver-color=666666ff
+ring-wrong-color=cc3333ff
+ring-clear-color=666666ff
+
+line-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+line-clear-color=00000000
+
+separator-color=00000000
+
+# Texto simples e discreto
+text-color=ccccccff
+text-ver-color=ffffff
+text-wrong-color=ff6666
+text-clear-color=999999
+
+key-hl-color=66ccff
+caps-lock-key-hl-color=ffcc66
+
+# Relógio minimalista (opcional, estilo TUI)
+clock
+datestr=%a, %d de %B
+timestr=%H:%M:%S
+font=monospace
+font-size=24
+
+# Sem verniz ou efeitos extras
+effect-vignette=0:0
+
+# Fade suave ao travar
+fade-in=0.1
+grace=1
