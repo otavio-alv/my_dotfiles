@@ -1,55 +1,64 @@
 # my_dotfiles
 
-Dotfiles do meu rice atual: **Sway (SwayFX) no EndeavourOS/Arch**, visual escuro e minimalista, com cores geradas dinamicamente a partir do wallpaper via **pywal**.
+Dotfiles for my current rice: **Sway (SwayFX) on EndeavourOS/Arch**, dark and minimalist look, with colors dynamically generated from the wallpaper via **pywal**.
+
+## Screenshots
+
+<img width="1920" height="1080" alt="Desktop" src="https://github.com/user-attachments/assets/f0983797-165d-4824-9976-ec500c2d438c" />
+
+<img width="1920" height="1080" alt="Black&White" src="https://github.com/user-attachments/assets/0d32478e-18cd-44ed-9245-03dd90dcb1e5" />
+
+<img width="1920" height="1080" alt="Green" src="https://github.com/user-attachments/assets/32eb54b5-69ef-4d68-b841-274a8b4edb94" />
+
 
 ## Stack
 
-| Função | Ferramenta |
+| Role | Tool |
 |---|---|
 | Distro | EndeavourOS / Arch Linux |
-| Compositor | Sway com efeitos (SwayFX: `blur`, `animation_duration_ms`) |
-| Barra | Waybar |
-| Launcher | Rofi (módulos `drun` + `calc`, tema `hacker.rasi`) |
-| Terminal | Kitty (zsh, JetBrainsMono Nerd Font, 90% de opacidade) |
-| Tema/cores | pywal (`wal -i <imagem>`) + `~/.config/theme/sync-theme.sh` |
-| Lock / idle | swaylock-effects (blur do screenshot) + swayidle |
+| Compositor | Sway with effects (SwayFX: `blur`, `animation_duration_ms`) |
+| Bar | Waybar |
+| Launcher | Rofi (`drun` + `calc` modules, `hacker.rasi` theme) |
+| Terminal | Kitty (zsh, JetBrainsMono Nerd Font, 90% opacity) |
+| Theme/colors | pywal (`wal -i <image>`) + `~/.config/theme/sync-theme.sh` |
+| Lock / idle | swaylock-effects (screenshot blur) + swayidle |
 | OSD | SwayOSD |
-| Teclado | Layout XKB próprio `custom_br` (em `~/.config/xkb/symbols`) |
-| Navegador / editor / arquivos | Zen Browser, VS Code, Nautilus |
-| Fetch | Fastfetch (logo próprio) |
-| Extras | TickTick na Waybar (CLI + systemd timer), wlsunset, gnome-keyring |
+| Keyboard | Custom XKB layout `custom_br` (in `~/.config/xkb/symbols`) |
+| Browser / editor / files | Zen Browser, VS Code, Nautilus |
+| Fetch | Fastfetch (custom logo) |
+| Extras | TickTick in Waybar (CLI + systemd timer), wlsunset, gnome-keyring |
 
-## Estrutura
+## Structure
 
 ```
 dotfiles/
 ├── sway/        config + scripts/start-keyring.sh
 ├── waybar/      config.jsonc, style.css, scripts/ (bluetooth, powermenu, wlsunset, ticktick)
 ├── rofi/        config.rasi + themes/ (hacker, blurred, colors-rofi-dark, generated-colors)
-├── kitty/       kitty.conf, temas (Medallion, otv, current-theme)
+├── kitty/       kitty.conf, themes (Medallion, otv, current-theme)
 ├── swaylock/    config
-├── theme/       sync-theme.sh + arquivos gerados (palette, sway, kitty, waybar)
+├── theme/       sync-theme.sh + generated files (palette, sway, kitty, waybar)
 ├── fastfetch/   config.jsonc, logo.png, logo.txt
 └── systemd/user ticktick-cli.service/.timer + *.target.wants
 xkb/
-├── custom_br    layout usado pelo sway (vai em ~/.config/xkb/symbols/)
-└── br           variante meuabnt2 antiga (arquivo de sistema, legado)
-update.sh        copia as configs atuais de ~/.config para este repositório
+├── custom_br    layout used by sway (goes in ~/.config/xkb/symbols/)
+└── br           old meuabnt2 variant (system file, legacy)
+update.sh        copies the current configs from ~/.config into this repository
 ```
 
-## Atualizar o repositório
+## Updating the repository
 
-Depois de mexer nas configs em `~/.config`, rode:
+After tweaking the configs in `~/.config`, run:
 
 ```bash
 ./update.sh
 ```
 
-O script sincroniza `kitty, rofi, sway, swaylock, systemd, theme, waybar, fastfetch` para `dotfiles/` (com `rsync --delete`, então arquivos removidos na origem somem do repositório) e copia `~/.config/xkb/symbols/*` para `xkb/`. Ele não faz commit.
+The script syncs `kitty, rofi, sway, swaylock, systemd, theme, waybar, fastfetch` into `dotfiles/`.
 
-## Dependências
+## Dependencies
 
-Pacotes oficiais/AUR (nomes podem variar; confira com `yay -Ss`):
+Official packages/AUR:
 
 ```bash
 sudo pacman -S --needed sway waybar rofi rofi-calc kitty zsh swayidle \
@@ -61,94 +70,78 @@ sudo pacman -S --needed sway waybar rofi rofi-calc kitty zsh swayidle \
 yay -S swayfx swaylock-effects swayosd zen-browser-bin
 ```
 
-Também usados: fonte **Envy Code R Nerd Font** (Rofi), `xfce4-power-manager`, `code` (VS Code) e `nmgui` (clique direito na rede).
-
-> `swayfx` substitui o pacote `sway` (conflitam). Se usar SwayFX, não instale o `sway` comum.
-
-## Instalação
+## Installation
 
 ```bash
 git clone https://github.com/otavio-alv/my_dotfiles.git ~/my_dotfiles
 cd ~/my_dotfiles
 
-# Faça backup do que já existir
+# Back up whatever already exists
 mkdir -p ~/.config
 for d in sway waybar rofi kitty theme fastfetch; do
   [ -e ~/.config/$d ] && mv ~/.config/$d ~/.config/$d.bak
   ln -s ~/my_dotfiles/dotfiles/$d ~/.config/$d
 done
 
-# swaylock (o sway chama ~/.swaylock/config)
+# swaylock (sway calls ~/.swaylock/config)
 mkdir -p ~/.swaylock && ln -s ~/my_dotfiles/dotfiles/swaylock/config ~/.swaylock/config
 
-# systemd (timer do TickTick)
+# systemd (TickTick timer)
 mkdir -p ~/.config/systemd
 ln -s ~/my_dotfiles/dotfiles/systemd/user ~/.config/systemd/user
 systemctl --user daemon-reload
 systemctl --user enable --now ticktick-cli.timer
 
-# Scripts executáveis
+# Executable scripts
 chmod +x ~/.config/waybar/scripts/*.sh ~/.config/sway/scripts/*.sh
 
-# Tema: gere as cores antes de iniciar o sway
-wal -i ~/Pictures/seu-wallpaper.jpg
+# Theme: generate the colors before starting sway
+wal -i ~/Pictures/your-wallpaper.jpg
 ```
 
-### Layout de teclado (XKB)
+### Keyboard layout (XKB)
 
-O sway usa `xkb_layout custom_br`. O arquivo é lido do diretório do usuário, sem precisar de `sudo`:
+Sway uses `xkb_layout custom_br`. The file is read from the user's directory, no `sudo` needed:
 
 ```bash
 mkdir -p ~/.config/xkb/symbols
 cp ~/my_dotfiles/xkb/custom_br ~/.config/xkb/symbols/custom_br
 ```
 
-É o ABNT2 padrão com AltGr+E = `\`, AltGr+Z = `|` e AltGr+R = `°`. Como fica em `~/.config`, não é sobrescrito por atualizações do `xkeyboard-config`.
+## Required adjustments
 
-> `xkb/br` é a versão antiga (variante `meuabnt2`, instalada em `/usr/share/X11/xkb/symbols/br`). Não é mais usada pelo sway e não é atualizada pelo `update.sh`.
+- **Hardcoded paths:** `sway/config` and `rofi/config.rasi` use the placeholder `/home/USER/...` (`update.sh` generates it automatically). Replace it with your home: `grep -rl /home/USER dotfiles | xargs sed -i "s|/home/USER|$HOME|g"`.
+- **Monitors:** `eDP-1` (1920x1080@144Hz) and `HDMI-A-1` (1920x1080@60Hz, on the right). Check yours with `swaymsg -t get_outputs`.
+- **Backlight:** Waybar uses `intel_backlight`.
 
-## Ajustes obrigatórios
+## Main shortcuts (`Super` = Mod4)
 
-- **Caminhos fixos:** o `sway/config` e o `rofi/config.rasi` usam o placeholder `/home/USER/...` (o `update.sh` o gera automaticamente). Troque pelo seu home: `grep -rl /home/USER dotfiles | xargs sed -i "s|/home/USER|$HOME|g"`.
-- **Monitores:** `eDP-1` (1920x1080@144Hz) e `HDMI-A-1` (1920x1080@60Hz, à direita). Veja os seus com `swaymsg -t get_outputs`.
-- **Backlight:** a Waybar usa `intel_backlight`.
-- **TickTick:** depende do binário `~/.local/bin/ticktickCLI`, que **não está neste repositório**. Sem ele, desative o módulo `custom/ticktick`.
-- **Waybar:** a pasta `waybar/waybar/` parece ser resquício do Waybar Configurator; o que vale é `config.jsonc` + `style.css`.
-
-## Atalhos principais (`Super` = Mod4)
-
-| Atalho | Ação |
+| Shortcut | Action |
 |---|---|
 | `Super+Enter` | Kitty |
 | `Super+Space` | Rofi (apps) |
-| `Super+W` | Fechar janela |
+| `Super+W` | Close window |
 | `Super+E` | Nautilus |
 | `Super+Z` | Zen Browser |
-| `Super+C` | Editar o config do sway no VS Code |
-| `Super+Shift+T` | Sincronizar tema + recarregar o sway |
-| `Super+Shift+C` | Recarregar o sway |
-| `Super+Shift+E` | Sair do sway |
-| `Super+M` | Suspender |
-| `Super+1..0` | Workspaces (`Shift` move a janela) |
-| `Super+H/J/K/L` | Foco (`Shift` move a janela) |
-| `Super+R` | Modo resize |
+| `Super+C` | Edit the sway config in VS Code |
+| `Super+Shift+T` | Sync theme + reload sway |
+| `Super+Shift+C` | Reload sway |
+| `Super+Shift+E` | Exit sway |
+| `Super+M` | Suspend |
+| `Super+1..0` | Workspaces (`Shift` moves the window) |
+| `Super+H/J/K/L` | Focus (`Shift` moves the window) |
+| `Super+R` | Resize mode |
 | `Super+B` / `V` | Split horizontal / vertical |
-| `Print` | Print de região para o clipboard |
-| `Shift+Print` | Print de região para `~/Pictures` |
+| `Print` | Region screenshot to clipboard |
+| `Shift+Print` | Region screenshot to `~/Pictures` |
 
-Gestos no touchpad: swipe esquerda/direita troca de workspace. O lock ocorre após 5 min de inatividade e a suspensão após 10 min.
-
-## Trocar o tema
+## Changing the theme
 
 ```bash
-wal -i caminho/da/imagem.jpg   # gera ~/.cache/wal/colors-sway e colors-kitty.conf
-# depois: Super+Shift+T
+wal -i path/to/image.jpg   # generates ~/.cache/wal/colors-sway and colors-kitty.conf
+# then: Super+Shift+T
 ```
 
-O Sway e o Kitty incluem os arquivos gerados em `~/.cache/wal/`. O script `~/.config/theme/sync-theme.sh` (em `dotfiles/theme/`) é chamado pelo atalho.
+Sway and Kitty include the generated files from `~/.cache/wal/`. The script `~/.config/theme/sync-theme.sh` (in `dotfiles/theme/`) is called by the shortcut.
 
-## Observações
-
-- Cabeçalho do `sway/config` credita "WildGothitelle" como base.
-- `kitty.conf.bak` e temas não usados (Medallion, otv) estão apenas como referência.
-- Licença: veja [LICENSE](LICENSE).
+- License: see [LICENSE](LICENSE).
