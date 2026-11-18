@@ -1,0 +1,54 @@
+# Background image (screenshot of the current screen, blurred)
+screenshots
+
+# Background blur
+effect-blur=15x3
+
+# Initial scale so the blur looks smoother
+effect-scale=0.3
+
+# Minimal indicator (TUI style)
+indicator
+indicator-radius=80
+indicator-thickness=10
+
+# Dark, minimal colors (ily/tui style)
+inside-color=000000cc
+inside-ver-color=000000cc
+inside-wrong-color=000000cc
+inside-clear-color=000000cc
+
+ring-color=333333ff
+ring-ver-color=666666ff
+ring-wrong-color=cc3333ff
+ring-clear-color=666666ff
+
+line-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+line-clear-color=00000000
+
+separator-color=00000000
+
+# Simple, discreet text
+text-color=ccccccff
+text-ver-color=ffffff
+text-wrong-color=ff6666
+text-clear-color=999999
+
+key-hl-color=66ccff
+caps-lock-key-hl-color=ffcc66
+
+# Minimal clock (optional, TUI style)
+clock
+datestr=%a, %d de %B
+timestr=%H:%M:%S
+font=monospace
+font-size=24
+
+# No varnish or extra effects
+effect-vignette=0:0
+
+# Smooth fade on lock
+fade-in=0.1
+grace=1

@@ -1,0 +1,110 @@
+/*******************************************************************************
+ * ROFI Color Theme: Hacker / Machine Style (Compacto)
+ *******************************************************************************/
+
+@import "/home/USER/.cache/wal/colors-rofi-dark.rasi"
+
+* {
+    /* Palette */
+    bg-col:       #111310;
+    input-col:    #221F1F;
+    fg-col:       #FEF9E1;
+    accent-col:   #FF5555;
+    select-bg:    #333333;
+    border-col:   #FEF9E1;
+    
+    /* CHANGE: Font reduced from 15 to 11 */
+    font: "Envy Code R Nerd Font 11";
+
+    background-color: transparent;
+    text-color:       @fg-col;
+    margin:           0px;
+    padding:          0px;
+    spacing:          0px;
+}
+
+window {
+    /* CHANGE: Width reduced from 600px to 450px */
+    width:            600px;
+    background-color: @bg-col;
+    border:           1px;
+    border-color:     @border-col;
+    border-radius:    2px;
+    /* CHANGE: Window padding reduced */
+    padding:          10px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @input-col;
+    border:           1px;
+    border-color:     @border-col;
+    /* CHANGE: Padding and margin reduced to look tighter */
+    padding:          4px;
+    margin:           0px 0px 8px 0px; 
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    padding:    0px 8px 0px 4px;
+    text-color: @selected-active-background;
+    content:    ">";
+}
+
+entry {
+    placeholder:       "Pesquisar...";
+    placeholder-color: #666666;
+    text-color:        @fg-col;
+    cursor:            text;
+}
+
+listview {
+    border:       0px;
+    lines:        8;
+    scrollbar:    true;
+}
+
+scrollbar {
+    handle-width: 3px; /* Um pouco mais fina */
+    handle-color: @selected-active-background;
+    background-color: @input-col;
+    margin: 0px 0px 0px 6px;
+}
+
+element {
+    /* CHANGE: Item padding halved */
+    padding: 4px;
+    margin:  1px 0px; /* Margem menor entre itens */
+    border:  1px;
+    border-color: transparent;
+}
+
+element-icon {
+    /* CHANGE: Smaller icons */
+    size: 16px;
+    margin: 0px 8px 0px 0px;
+}
+
+element selected {
+    background-color: @input-col;
+    text-color:       @selected-active-background;
+    border:           1px;
+    border-color:     @selected-active-background;
+}
+
+element-text selected {
+    text-color: @active-foreground;
+}
+
+#element.normal.normal {
+    background-color: @bg-col;
+    text-color: @normal-foreground;
+}
+
+#element.alternate.normal {
+    background-color: @bg-col;
+    text-color: @normal-foreground;
+}

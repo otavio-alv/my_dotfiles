@@ -1,0 +1,8 @@
+[Unit]
+Description=Atualiza cache do TickTick para o Waybar
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/ticktickCLI -waybar
